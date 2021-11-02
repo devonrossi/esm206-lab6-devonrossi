@@ -130,5 +130,10 @@ penguin_lm_glance
 ```{r}
 extract_eq(model = penguin_lm, use_coefs = TRUE)
 ```
-$\frac{apples}{bananas}$
-cool! :D
+
+### Use plot() function to automatically produce diagnostic plots
+
+```{r}
+plot(penguin_lm) #assumptions of linear regression modeling
+```
+
