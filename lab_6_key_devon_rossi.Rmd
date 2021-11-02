@@ -1,0 +1,55 @@
+---
+title: "Lab 6"
+author: "Devon Rossi"
+date: "11/2/2021"
+output: html_document
+---
+#Setup
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#Attach packages (adding broom and equatiomatic)
+
+library(tidyverse)
+library(palmerpenguins)
+library(broom)
+library(equatiomatic)
+```
+
+## Rank based test 
+
+Mann-Whitney U (non-parametric alternative to an unpaired 2-sample t-test).
+
+H0: Equal ranks (or medians) - samples are drawn from pops w/ equal ranks or median values
+HA: Ranks are not equal (or, medians are not equal)
+
+### Create samples
+
+`set.seed()` to create "pseudorandom, but reproducible samples"
+
+```{r}
+set.seed(1414) #run set.seed first
+gp_1 <- sample.int(20, size = 15, replace = TRUE) #group 1, sample, 1-20, replacement = TRUE 
+
+set.seed(1424)
+gp_2 <- sample.int(30, size = 15, replace = TRUE) #group 2, sample, 1-30, replacement = TRUE
+```
+
+Take a quick look at the distributions using the `hist()`.
+
+```{r}
+hist(gp_1) #not convincingly normally distributed
+hist(gp_2) 
+```
+
+Try a t-test so we can compare the results:
+
+```{r}
+ttest <- t.test(gp_1, gp_2)
+
+#If these data were paired, I can just add the argument 'paired  = "TRUE"' within the t.test() function.
+```
+
+This p-value means that IF our samples are drawn from populations with the same mean (i.e., if they null hypothesis is true), there is `r round(ttest$p.value,2)` probably of finding sample means *at least as different* as mine by random chance.
+
+
+I don't think that my samples are so different that I think I have enough evidence to reject the null that they're from populations with the same mean.
