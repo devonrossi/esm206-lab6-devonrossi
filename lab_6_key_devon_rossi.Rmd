@@ -104,3 +104,31 @@ real-world interpretation of y-int: -5780.83
 expected avg mass of penguins that have a flipper length of 0mm
 not possible lol! a ghost penguin!
 sometimes on its own, y-int not meaningful.
+
+Model coefficients: `r penguin_lm$coefficients`
+Flipper length coefficient: `r penguin_lm$coefficients[2]`
+*use brackets for indexing*
+
+
+```{r}
+penguin_lm_tidy <- tidy(penguin_lm)
+
+penguin_lm_tidy
+```
+
+### Use broom::glance() to get output of model fit & statistical significance
+
+```{r}
+penguin_lm_glance <- glance(penguin_lm)
+
+penguin_lm_glance
+```
+
+
+### Use equatiomatic::extract_eq() to return model in LaTeX
+
+```{r}
+extract_eq(model = penguin_lm, use_coefs = TRUE)
+```
+$\frac{apples}{bananas}$
+cool! :D
