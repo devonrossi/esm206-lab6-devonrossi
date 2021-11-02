@@ -38,7 +38,7 @@ Take a quick look at the distributions using the `hist()`.
 
 ```{r}
 hist(gp_1) #not convincingly normally distributed
-hist(gp_2) 
+hist(gp_2) #also not convincingly normally distributed
 ```
 
 Try a t-test so we can compare the results:
@@ -49,7 +49,23 @@ ttest <- t.test(gp_1, gp_2)
 #If these data were paired, I can just add the argument 'paired  = "TRUE"' within the t.test() function.
 ```
 
-This p-value means that IF our samples are drawn from populations with the same mean (i.e., if they null hypothesis is true), there is `r round(ttest$p.value,2)` probably of finding sample means *at least as different* as mine by random chance.
+This p-value (0.1982) means that IF our samples are drawn from populations with the same mean (i.e., if they null hypothesis is true), there is `r round(ttest$p.value,2)` probably of finding sample means *at least as different* as mine by random chance.
+
+[A more comprehensive explanation of differences between groups ... actually means, data spread, effect size] ... there is no significant difference (t(df) = t-statistic value, p = ). 
+
+### Mann Whitney U rank based test
+
+We use the `wilcox.test()` to perform a two-sample rank-based test.
+
+```{r}
+mwu <- wilcox.test(gp_1, gp_2)
+```
+P-value = 0.28, or 28%
+HO: Equal MEDIANS
+
+This p-value means that if our samples are drawn from a population with the same median, there is a 28% chance of finding medians at least as different as ours by random chance. 
+
+No significant difference in medians (Mann-Whitney U; U = `r mwu$statistic`, p = `r round(mwu$p.value, 2)`)
 
 
-I don't think that my samples are so different that I think I have enough evidence to reject the null that they're from populations with the same mean.
+The medians of group A (M = 22.4g) an ground B (M = 31.2 g) did not differ significantly (Mann Whitney U, ...).
