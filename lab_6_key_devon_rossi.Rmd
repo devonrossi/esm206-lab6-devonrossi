@@ -69,3 +69,38 @@ No significant difference in medians (Mann-Whitney U; U = `r mwu$statistic`, p =
 
 
 The medians of group A (M = 22.4g) an ground B (M = 31.2 g) did not differ significantly (Mann Whitney U, ...).
+
+## Simple linear regression
+
+Two *continuous quantitative* variables that you are trying to understand the relationship between, and you think that a linear relationship makes sense.
+
+
+Use the `penguins` data from {palmerpenguins}, exploring flipper length (x) versus body mass (y).
+
+```{r}
+#Use View(penguins) to look at it
+#Make an exploratory scatterplot of penguin flipper length (x-axis) versus body mass (y-axis)
+
+ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point() +
+  geom_smooth(method = "lm") #geom_smooth adds linear trend line
+```
+
+### Find the model estimates (coefficients)
+
+Use the `lm()` for linear model.
+
+body_mass_g ~ tilde (not a minus sign)
+
+```{r}
+penguin_lm <- lm(body_mass_g ~ flipper_length_mm, data = penguins) 
+```
+
+slope on graph is telling us how body mass is changing w/ respect to flipper length
+flipper_length_mm = 49.69/1 g/mm
+meaning of slope: we expect for 1mm inc in flipper length, 49.69g in body mass on avg
+
+real-world interpretation of y-int: -5780.83
+expected avg mass of penguins that have a flipper length of 0mm
+not possible lol! a ghost penguin!
+sometimes on its own, y-int not meaningful.
